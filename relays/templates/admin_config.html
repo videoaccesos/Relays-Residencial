@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Configuración de Residencias</h1>
+    <a href="#" class="btn btn-success">Nueva Residencia</a>
+  </div>
+
+  <table class="table table-striped">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">URL Base</th>
+        <th scope="col" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for r in residences %}
+        <tr>
+          <td>{{ r.id }}</td>
+          <td>{{ r.name }}</td>
+          <td>{{ r.type }}</td>
+          <td><a href="{{ r.url_base }}" target="_blank">{{ r.url_base }}</a></td>
+          <td class="text-center">
+            <button class="btn btn-sm btn-primary mr-1" onclick="editResidence('{{ r.id }}')">
+              Editar
+            </button>
+            <button class="btn btn-sm btn-danger" onclick="deleteResidence('{{ r.id }}')">
+              Borrar
+            </button>
+          </td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="5" class="text-center">No hay residencias configuradas.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <!-- Modal o formulario oculto para crear/editar podría ir aquí -->
+
+  <script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+{% endblock %}
